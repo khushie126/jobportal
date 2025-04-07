@@ -1,0 +1,12 @@
+<h1>Welcome to the Home Page</h1>
+
+<% if current_user %>
+  <p>You have successfully authenticated!</p>
+  <!-- Show the link to create a profile if the user is logged in -->
+ <button class="btn btn-light"> <%= link_to "Create Your Profile", new_profile_information_path %></button>
+<% else %>
+  <p>You are not signed in.</p>
+  <!-- Links for sign-up and login if the user is not signed in -->
+  <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %>
+  <%= link_to "Login", new_user_session_path, class: 'btn btn-secondary' %>
+<% end %>

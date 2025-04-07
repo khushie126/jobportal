@@ -1,0 +1,26 @@
+<h1>Companies</h1>
+<table>
+  <thread>
+  <tr>
+  <th>Company name</th>
+  <th>Description</th>
+  <th>Location</th>
+  <th>Review</th>
+  </tr>
+  </thread>
+  <tbody>
+  <% @company.each do |company|%>
+  <tr><td><%=company.company_name %></td>
+ <td><%=company.description %></td>   
+  <td><%=company.location %></td>   
+  <td><%=company.review %></td></tr>    
+  <td><%=link_to "Show",company_path(company)%></td>
+  <% if current_user.admin? || current_user.recruiter? %>
+  <td><%=link_to "Edit",edit_company_path(company)%></td>
+  <%end %>
+  <% end %>
+  </tbody>
+  </table>
+   <% if current_user.admin? || current_user.recruiter? %>
+  <%= link_to "Create Company Profile",new_company_path%>
+  <%end %>

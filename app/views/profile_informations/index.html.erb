@@ -1,0 +1,74 @@
+<!-- app/views/profile_informations/index.html.erb -->
+<h1>Profile Informations</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Phone Number</th>
+      <th>Profile Image</th>
+      <th>Company Name</th>
+      <th>Education start date</th>
+      <th>Education End date</th>
+      <th>College Name</th>
+      <th>School Name</th>
+      <th>Score Type</th>
+      <th>Score</th>
+      <th>Experience start date</th>
+      <th>Experience End date</th>
+      <th>Company Name</th>
+      <th>Description</th>
+      <th>Project title</th>
+      <th>Project Description</th>
+      <th>Skills</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pi.each do |profile_information| %>
+      <tr>
+        <td><%= profile_information.firstname %></td>
+        <td><%= profile_information.lastname %></td>
+        <td><%= profile_information.phone_number %></td>
+        <td><%= image_tag profile_information.profile_image , width: 100 , height: 100  if profile_information.profile_image.attached? %></td>
+        <td><%= profile_information.company.company_name if profile_information.company.present? %></td> 
+
+            <% profile_information.educations.each do |education| %>
+            <td><%= education.start_date %></td>
+            <td><%= education.end_date %></td>
+            <td><%= education.college_name %></td>
+            <td><%= education.school_name %></td>
+            <td><%= education.score_type %></td>
+            <td><%= education.score %></td>
+          <% end %>
+
+        <% profile_information.experiences.each do |experience| %>
+         <td><%= experience.start_date %></td>
+         <td><%= experience.end_date %></td> 
+         <td><%= experience.company_name %></td> 
+         <td><%= experience.description %></td>  
+          <% end %>
+
+
+        <% profile_information.projects.each do |project| %>
+         <td><%= project.title %></td>
+         <td><%= project.description %></td> 
+          <% end %>
+
+          <td>
+          <ul>
+            <% profile_information.skills.each do |skill| %>
+              <li><%= skill.name %></li>
+            <% end %>
+          </ul>
+        </td>
+
+        <td>
+          <%= link_to 'Show', profile_information_path(profile_information) %>
+          <%= link_to 'Edit', edit_profile_information_path(profile_information) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Profile', new_profile_information_path %> 

@@ -1,0 +1,97 @@
+<h1 class="page-title">Profile Information</h1>
+
+<div class="profile-info-container">
+  <% if @pi %>
+    <div class="profile-detail">
+      <p><strong>Firstname:</strong> <%= @pi.firstname %></p>
+      <p><strong>Lastname:</strong> <%= @pi.lastname %></p>
+      <p><strong>Phone Number:</strong> <%= @pi.phone_number %></p>
+      <p><strong>Profile Image:</strong>
+        <%= image_tag @pi.profile_image, width: 100, height: 100 if @pi.profile_image.attached? %>
+      </p>
+      <p><strong>Company Name:</strong> 
+        <%= @pi.company.present? ? @pi.company.company_name : 'No company associated' %>
+      </p>
+    </div>
+  <% else %>
+    <p>No profile information available.</p>
+    <%= link_to 'Create Profile', new_profile_information_path, class: 'btn btn-create' %>
+  <% end %>
+</div>
+
+<fieldset class="profile-section">
+  <legend>Education</legend>
+  <% @pi.educations.each do |education| %>
+    <div class="field">
+      <strong>Start Date:</strong>
+      <p><%= education.start_date %></p>
+    </div>
+    <div class="field">
+      <strong>End Date:</strong>
+      <p><%= education.end_date %></p>
+    </div>
+    <div class="field">
+      <strong>School Name:</strong>
+      <p><%= education.school_name %></p>
+    </div>
+    <div class="field">
+      <strong>College Name:</strong>
+      <p><%= education.college_name %></p>
+    </div>
+    <div class="field">
+      <strong>Score Type:</strong>
+      <p><%= education.score_type %></p>
+    </div>
+    <div class="field">
+      <strong>Score:</strong>
+      <p><%= education.score %></p>
+    </div>
+  <% end %>
+</fieldset>
+
+<fieldset class="profile-section">
+  <legend>Experience</legend>
+  <% @pi.experiences.each do |experience| %>
+    <div class="field">
+      <strong>Start Date:</strong>
+      <p><%= experience.start_date %></p>
+    </div>
+    <div class="field">
+      <strong>End Date:</strong>
+      <p><%= experience.end_date %></p>
+    </div>
+    <div class="field">
+      <strong>Company:</strong>
+      <p><%= experience.company_name %></p>
+    </div>
+    <div class="field">
+      <strong>Description:</strong>
+      <p><%= experience.description %></p>
+    </div>
+  <% end %>
+</fieldset>
+
+<fieldset class="profile-section">
+  <legend>Project</legend>
+  <% @pi.projects.each do |project| %>
+    <div class="field">
+      <strong>Title:</strong>
+      <p><%= project.title %></p>
+    </div>
+    <div class="field">
+      <strong>Description:</strong>
+      <p><%= project.description %></p>
+    </div>
+    
+  <% end %>
+</fieldset>
+
+ <p><strong> skills:</strong>
+<ul class="profile-information-skills">
+  <% @pi.skills.each do |skill| %>
+    <li><%= skill.name %></li>
+  <% end %>
+</ul>
+</p>
+
+<%= link_to 'Back', profile_informations_path, class: 'btn btn-back' %>

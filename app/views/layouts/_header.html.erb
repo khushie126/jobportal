@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><i class='fas fa-box-open' style='font-size:48px;color:red'></i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+         <a class="nav-link active" aria-current="page" href="<%= root_path %>">Home</a>
+
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Jobs', job_posts_path, class: 'nav-link' %>
+        </li>   
+        <li class="nav-item">
+          <%= link_to 'Companies', companies_path, class: 'nav-link' %>
+        </li>
+     
+    <li class="nav-item">
+      <%= link_to 'View Application', applied_jobs_path, class: 'nav-link' %>
+    </li>
+  
+      </ul>
+  <ul class="navbar-nav"> 
+   
+ <span class="navbar-text">
+  <% if current_user %>
+   <%= current_user.role%>
+    <% if current_user.profile_information.present? %>
+      <%= link_to current_user.profile_information.firstname, current_user.profile_information, class: 'nav-link' %>
+     
+    <% else %>
+      <%= link_to 'Create Your Profile', new_profile_information_path, class: 'nav-link' %>
+    <% end %>
+  <% else %>
+  <p>User Not Found</p>
+  <% end %>
+</span>
+
+    </li>
+  </ul>  
+      <!-- Login/Logout/Sign In buttons aligned to the right -->
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+              <%= link_to 'Logout', destroy_user_session_path, 'data-turbo-method': :delete, class: 'nav-link btn btn-danger'  %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Login', new_user_session_path, class: 'nav-link btn btn-primary' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign In', new_user_registration_path, class: 'nav-link btn btn-success' %>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</nav>
