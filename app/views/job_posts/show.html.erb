@@ -1,0 +1,23 @@
+<h1 class="page-title">Job Post Details</h1>
+
+<div class="job-post-container">
+  <% if @jp %>
+    <div class="job-post-detail">
+      <p><strong>Title:</strong> <%= @jp.title %></p>
+      <p><strong>Type:</strong> <%= @jp.job_type %></p>
+      <p><strong>Description:</strong> <%= @jp.description %></p>
+      <p><strong>Company:</strong> <%= @jp.company.company_name %></p>
+      <p><strong>Required skills:</strong>
+        <ul class="job-post-skills">
+          <% @jp.skills.each do |skill| %>
+            <li><%= skill.name %></li>
+          <% end %>
+        </ul>
+      </p>
+  <% else %>
+    <p>No job post available.</p>
+  <% end %>
+
+  <%= link_to 'Create Job Post', new_job_post_path, class: 'btn btn-create' %>
+  <%= link_to 'Back', job_posts_path, class: 'btn btn-back' %>
+</div>

@@ -1,0 +1,52 @@
+<h1 class="page-title">Job Posts</h1>
+
+<table class="table table-borderless">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Company Name</th>
+      <th>Actions</th>
+      <th>Required Skills</th>
+      <th>Apply</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @jp.each do |job_post| %>
+      <tr>
+        <td><%= job_post.title %></td> 
+        <td><%= job_post.job_type %></td> 
+        <td><%= job_post.description %></td>
+        <td><%= job_post.company.company_name %></td>
+       
+        <td>
+          <ul>
+            <% job_post.skills.each do |skill| %>
+              <li><%= skill.name %></li>
+            <% end %>
+          </ul>
+        </td>
+        
+        <td class="actions">
+          <%= link_to 'Show', job_post_path(job_post), class: 'btn btn-show' %>
+          <% if current_user.admin? || current_user.recruiter? %>
+          <%= link_to 'Edit', edit_job_post_path(job_post), class: 'btn btn-edit' %>
+          <% end %>
+        </td>
+        <td>
+            <% if @applied_status[job_post.id] %>
+              <p>You have already applied for this job.</p>
+            <% else %>
+              <%= link_to 'Apply for Job', job_post_apply_path(job_post), method: :post, class: 'apply-button' %>
+            <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="new-job-post-btn">
+  <%= link_to 'New Job Post', new_job_post_path, class: 'btn btn-new' %>
+</div>

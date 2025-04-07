@@ -1,0 +1,38 @@
+
+
+<%= form_with model: @company do |form| %>
+    <% if @company.errors.any? %>
+    <div class="errors">
+      <h2>There were errors with your submission:</h2>
+      <ul>
+        <% @company.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= form.label :company_name%>
+    <%= form.text_field :company_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location%>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :review %>
+    <%= form.text_field :review%> 
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Create Profile" %>
+  </div>
+<%end%>
+<%= link_to "Back",companies_path%>
