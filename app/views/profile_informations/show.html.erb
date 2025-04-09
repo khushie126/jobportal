@@ -1,4 +1,6 @@
 <h1 class="page-title">Profile Information</h1>
+ <%= link_to 'Edit', edit_profile_information_path(@pi), class: 'btn btn-back'%>
+<%= link_to 'Back', profile_informations_path, class: 'btn btn-back' %>
 
 <div class="profile-info-container">
   <% if @pi %>
@@ -82,16 +84,14 @@
       <strong>Description:</strong>
       <p><%= project.description %></p>
     </div>
-    
   <% end %>
 </fieldset>
 
- <p><strong> skills:</strong>
-<ul class="profile-information-skills">
-  <% @pi.skills.each do |skill| %>
-    <li><%= skill.name %></li>
-  <% end %>
-</ul>
-</p>
-
-<%= link_to 'Back', profile_informations_path, class: 'btn btn-back' %>
+<legend>Skills</legend>
+<div class="field">
+  <ul>
+    <% @skills.each do |skill| %>
+    <li><%= skill %></li>
+    <% end %>
+  </ul>
+</div>

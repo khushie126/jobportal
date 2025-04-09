@@ -1,26 +1,33 @@
 <h1>Companies</h1>
-<table>
-  <thread>
-  <tr>
-  <th>Company name</th>
-  <th>Description</th>
-  <th>Location</th>
-  <th>Review</th>
-  </tr>
-  </thread>
-  <tbody>
-  <% @company.each do |company|%>
-  <tr><td><%=company.company_name %></td>
- <td><%=company.description %></td>   
-  <td><%=company.location %></td>   
-  <td><%=company.review %></td></tr>    
-  <td><%=link_to "Show",company_path(company)%></td>
-  <% if current_user.admin? || current_user.recruiter? %>
-  <td><%=link_to "Edit",edit_company_path(company)%></td>
-  <%end %>
+
+<div class="row">
+  <% @company.each do |company| %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= company.company_name %></h5>
+          <h6 class="card-subtitle mb-2 text-muted">Location:<%= company.location %></h6>
+          <p class="card-text"><strong>Description:</strong> <%= truncate(company.description, length: 150) %></p> <!-- Truncated description -->
+          <p class="card-text"><strong>Review:</strong> <%= company.review %></p>
+
+          <div class="d-flex justify-content-between">
+            <div>
+              <%= link_to 'Show', company_path(company), class: 'btn btn-info btn-sm' %>
+            </div>
+            <% if current_user.admin? || current_user.recruiter? %>
+              <div>
+                <%= link_to 'Edit', edit_company_path(company), class: 'btn btn-warning btn-sm' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
-  </tbody>
-  </table>
-   <% if current_user.admin? || current_user.recruiter? %>
-  <%= link_to "Create Company Profile",new_company_path%>
-  <%end %>
+</div>
+
+<% if current_user.admin? || current_user.recruiter? %>
+  <div class="text-center mt-4">
+    <%= link_to 'Create Company Profile', new_company_path, class: 'btn btn-success' %>
+  </div>
+<% end %>

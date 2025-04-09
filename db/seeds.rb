@@ -47,7 +47,7 @@ puts "=======Completed JobPost creation========="
 puts "=======Started Application creation==========="
 
 # Define the specific statuses you want to use
-statuses = ["inprogress", "interview", "accepted", "rejected"]
+statuses = ["applied", "interview", "accepted", "rejected"]
 
 jbp = JobPost.all
 jbp.each do |job_post|
@@ -57,7 +57,7 @@ jbp.each do |job_post|
   applied_job = AppliedJob.find_or_create_by(status: status, job_post_id: job_post.id) do |a|
     a.company_id = Company.all.sample.id
     a.user_id = User.recruiter.sample.id
-    a.count = AppliedJob.count
+   
   end
   
   # In case the job wasn't found, but we still want to update any missing fields
@@ -67,9 +67,14 @@ end
 
 puts "=======Completed Application creation=========" 
 
+skills = ['Ruby', 'JavaScript', 'SQL', 'Rails', 'HTML', 'CSS']
+
+skills.each do |skill_name|
+  
+  Skill.create!(name: skill_name)
+end
 
 users = User.all
-
 profile_info = 0
 users.each do |user|
   pi = ProfileInformation.find_or_create_by(firstname: "fname_#{user.id}")
@@ -121,48 +126,4 @@ users.each do |user|
   puts "=======Completed Project creation========="
 end
 
-  puts "=======Started skill creation==========="
-    #skill
-    skills = ["Ruby", "JavaScript", "Python", "Java", "HTML", "CSS", "React", "Rails"]
-    skills.each do |skill_name|
-    Skill.find_or_create_by(name: skill_name)
-    end
-    
-    puts "=======Completed skill creation==========="
-    
-
-  puts "=======Started User skill creation==========="
-
-  # pis=ProfileInformationSkill.find_or_create_by(profile_information_id: ProfileInformation.all.sample.id)
-  # pis.skill_id = Skill.all.sample.id
-  
-  ProfileInformation.find_each.with_index do |profile|
-    random_skills = Skill.all.sample(3) # Pick a random number of skills (1 to 5)
-    
-    random_skills.each do |skill|
-      # Only create the association if it doesn't already exist
-      unless ProfileInformationSkill.exists?(profile_information_id: profile.id, skill_id: skill.id)
-        ProfileInformationSkill.create(profile_information_id: profile.id, skill_id: skill.id)
-      end
-    end
-  end
-  
-  puts "=======Completed User skill creation==========="
-
-
- puts "=======Started jobpost skill creation==========="
-  # jps=JobPostSkill.find_or_create_by(job_post_id: JobPost.all.sample.id)
-  # jps.skill_id = Skill.all.sample.id
-  JobPost.find_each.with_index do |job_post, index|
-  
-    random_skills = Skill.all.sample(3)
-   
-    random_skills.each do |skill|
-     
-      unless JobPostSkill.exists?(job_post_id: job_post.id, skill_id: skill.id)
-      JobPostSkill.find_or_create_by(job_post_id: job_post.id, skill_id: skill.id)
-    end
-  end
-end
-
-puts "=======completed jobpost skill creation==========="
+ 

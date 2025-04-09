@@ -5,7 +5,6 @@ class User < ApplicationRecord
   has_many :experiences, through: :profile_information
   has_many :educations, through: :profile_information
   has_many :projects, through: :profile_information
-  
   has_many :applied_jobs
   
   devise :database_authenticatable, :registerable,

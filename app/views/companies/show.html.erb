@@ -1,10 +1,25 @@
 <h1>Company Profile</h1>
+
 <% if @company %>
-<p><strong>company name:</strong> <%= @company.company_name %></p>
-<p><strong>description:</strong> <%= @company.description %></p>
-<p><strong>location:</strong> <%= @company.location %></p>
-<p><strong>review:</strong> <%=@company.review%></p>
- <%end%>
-<%= link_to 'Create Profile',new_company_path %>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><%= @company.company_name %></h5>
+      <h6 class="card-subtitle mb-2 text-muted">Location:<%= @company.location %></h6>
+      
+      <p class="card-text"><strong>Description:</strong> <%= @company.description %></p>
+      <p class="card-text"><strong>Review:</strong> <%= @company.review %></p>
+      
+      <% if current_user.admin? || current_user.recruiter? %>
+        <div class="mt-4">
+          <%= link_to 'Create Profile', new_company_path, class: 'btn btn-success' %>
+        </div>
+      <% end %>
 
-
+      <div class="mt-3">
+        <%= link_to 'Back', companies_path, class: 'btn btn-secondary' %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <p>No company profile found.</p>
+<% end %>

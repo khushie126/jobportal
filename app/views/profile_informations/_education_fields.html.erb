@@ -19,11 +19,11 @@
     <%= f.text_field :school_name %>
   </div>
 
-  <div class="field">
-      <%= f.label :score_type %>
-      <%= f.text_field :score_type %>
-    </div>
-
+   <div class="field">
+    <%= f.label :score_type,"score_type" %>
+    <%= f.select :score_type, options_for_select(Education.score_types.map {|key, value| [key.titleize, Education.score_types.key(value)]}, f.object.score_type)%>
+  </div>
+ 
   <div class="field">
       <%= f.label :score %>
       <%= f.text_field :score %>

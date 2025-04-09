@@ -1,4 +1,4 @@
 <h1>Edit JobPost</h1>
-<%if current_user.recruiter || current_user.admin%>
+<%if current_user.recruiter? || current_user.admin?%>
 <%= render "job_posts/form"%>
 <%end%>

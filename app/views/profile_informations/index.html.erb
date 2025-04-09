@@ -1,5 +1,6 @@
 <!-- app/views/profile_informations/index.html.erb -->
 <h1>Profile Informations</h1>
+<%= link_to 'Create New Profile', new_profile_information_path %> 
 <table>
   <thead>
     <tr>
@@ -54,14 +55,6 @@
          <td><%= project.description %></td> 
           <% end %>
 
-          <td>
-          <ul>
-            <% profile_information.skills.each do |skill| %>
-              <li><%= skill.name %></li>
-            <% end %>
-          </ul>
-        </td>
-
         <td>
           <%= link_to 'Show', profile_information_path(profile_information) %>
           <%= link_to 'Edit', edit_profile_information_path(profile_information) %>
@@ -71,4 +64,3 @@
   </tbody>
 </table>
 
-<%= link_to 'New Profile', new_profile_information_path %> 

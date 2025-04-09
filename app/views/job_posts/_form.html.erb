@@ -34,16 +34,16 @@
       <%= form.label :company_id, "Company Name", class: 'form-label' %>
       <%= form.select :company_id, options_for_select(Company.all.map { |c| [c.company_name, c.id] }), {}, class: 'form-select' %>
     </div>
-
-    <!-- Assign Random Skills Button -->
-    <div class="form-field">
-    <%= form.label :Required_skills %><br>
-    <%= form.collection_check_boxes :skill_ids, @skills, :id, :name do |b| %>
       <div>
-        <%= b.check_box %>
-        <%= b.label %>
-      </div>
-    <% end %>
+        
+   <legend>Skills</legend>
+  <div id="skills">
+  <%= form.fields_for :skill_assignments do |sa_form| %>
+       <%= render :partial => "skill_fields", :locals => {:f => sa_form}%>
+  <% end %>
+    <div class="links">
+      <%= link_to_add_association "Add Skills" , form, :skill_assignments, partial: 'skill_fields' %>
+    </div>
   </div>
     <!-- Submit Button -->
     <div class="form-actions">

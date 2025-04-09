@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_04_101254) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_08_053938) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,17 +87,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_101254) do
     t.index ["profile_information_id"], name: "index_experiences_on_profile_information_id"
   end
 
-  create_table "job_post_skills", force: :cascade do |t|
-    t.bigint "job_post_id"
-    t.bigint "skill_id"
-    t.integer "level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["job_post_id", "skill_id"], name: "index_job_post_skills_on_job_post_and_skill", unique: true
-    t.index ["job_post_id"], name: "index_job_post_skills_on_job_post_id"
-    t.index ["skill_id"], name: "index_job_post_skills_on_skill_id"
-  end
-
   create_table "job_posts", force: :cascade do |t|
     t.string "title"
     t.string "job_type"
@@ -108,15 +97,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_101254) do
     t.bigint "company_id", null: false
     t.integer "count"
     t.index ["company_id"], name: "index_job_posts_on_company_id"
-  end
-
-  create_table "profile_information_skills", force: :cascade do |t|
-    t.bigint "skill_id", null: false
-    t.bigint "profile_information_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["profile_information_id"], name: "index_profile_information_skills_on_profile_information_id"
-    t.index ["skill_id"], name: "index_profile_information_skills_on_skill_id"
   end
 
   create_table "profile_informations", force: :cascade do |t|
@@ -139,6 +119,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_101254) do
     t.datetime "updated_at", null: false
     t.bigint "profile_information_id", null: false
     t.index ["profile_information_id"], name: "index_projects_on_profile_information_id"
+  end
+
+  create_table "skill_assignments", force: :cascade do |t|
+    t.bigint "skill_id", null: false
+    t.string "skillable_type", null: false
+    t.bigint "skillable_id", null: false
+    t.integer "level", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skill_id", "skillable_type", "skillable_id"], name: "index_skill_assignments_on_skill_and_skillable", unique: true
+    t.index ["skill_id"], name: "index_skill_assignments_on_skill_id"
+    t.index ["skillable_type", "skillable_id"], name: "index_skill_assignments_on_skillable"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -168,8 +160,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_101254) do
   add_foreign_key "educations", "profile_informations"
   add_foreign_key "experiences", "profile_informations"
   add_foreign_key "job_posts", "companies"
-  add_foreign_key "profile_information_skills", "profile_informations"
-  add_foreign_key "profile_information_skills", "skills"
   add_foreign_key "profile_informations", "users"
   add_foreign_key "projects", "profile_informations"
+  add_foreign_key "skill_assignments", "skills"
 end

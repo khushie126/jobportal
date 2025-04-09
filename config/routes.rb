@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :profile_informations
+  # config/routes.rb
+
+  resources :profile_informations 
+
   resources :companies
   resources :job_posts do
-    post 'apply', to: 'job_posts#create', as: 'apply'
+    post 'apply', to: 'job_posts#create', as: 'apply' 
   end
   resources :applied_jobs
   

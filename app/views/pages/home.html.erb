@@ -3,7 +3,8 @@
 <% if current_user %>
   <p>You have successfully authenticated!</p>
   <!-- Show the link to create a profile if the user is logged in -->
- <button class="btn btn-light"> <%= link_to "Create Your Profile", new_profile_information_path %></button>
+
+ <button class="btn btn-light" > <%= link_to "Create Your Profile", new_profile_information_path, style: 'color: grey;' %></button>
 <% else %>
   <p>You are not signed in.</p>
   <!-- Links for sign-up and login if the user is not signed in -->
