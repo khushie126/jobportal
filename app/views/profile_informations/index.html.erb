@@ -1,0 +1,83 @@
+<h1 class="text-center my-4">Profile Informations</h1>
+
+<div class="text-center mb-4">
+  <% if @pi.nil? %>
+  <%= link_to 'Create New Profile', new_profile_information_path, class: 'btn btn-primary' %>
+ <% end %>
+  <%= link_to 'Back', root_path, class: 'btn btn-secondary'%>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <% @pi.each do |profile_information| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-header text-center">
+            <h5 class="card-title"><%= profile_information.firstname %> <%= profile_information.lastname %></h5>
+          </div>
+          <div class="card-body">
+            <p><strong>Phone Number:</strong> <%= profile_information.phone_number %></p>
+            <p><strong>Company:</strong> <%= profile_information.company.company_name if profile_information.company.present? %></p>
+
+            <% if profile_information.profile_image.attached? %>
+              <p><strong>Profile Image:</strong><br>
+                <%= image_tag profile_information.profile_image, width: 100, height: 100 %>
+              </p>
+            <% end %>
+            <hr>
+            <div class="education">
+              <h6><strong>Education:</strong></h6>
+              <% profile_information.educations.each do |education| %>
+                <p><strong>Start Date:</strong> <%= education.start_date %></p>
+                <p><strong>End Date:</strong> <%= education.end_date %></p>
+                <p><strong>College Name:</strong> <%= education.college_name %></p>
+                <p><strong>School Name:</strong> <%= education.school_name %></p>
+                <p><strong>Score Type:</strong> <%= education.score_type %></p>
+                <p><strong>Score:</strong> <%= education.score %></p>
+              <% end %>
+            </div>
+            <hr>
+
+            <div class="experience">
+              <h6><strong>Experience:</strong></h6>
+              <% profile_information.experiences.each do |experience| %>
+                <p><strong>Start Date:</strong> <%= experience.start_date %></p>
+                <p><strong>End Date:</strong> <%= experience.end_date %></p>
+                <p><strong>Company Name:</strong> <%= experience.company_name %></p>
+                <p><strong>Description:</strong> <%= experience.description %></p>
+              <% end %>
+            </div>
+            <hr>
+            <div class="projects">
+              <h6><strong>Projects:</strong></h6>
+              <% profile_information.projects.each do |project| %>
+                <p><strong>Title:</strong> <%= project.title %></p>
+                <p><strong>Description:</strong> <%= project.description %></p>
+              <% end %>
+            </div>
+            <hr>
+            <div class="skills">
+              <h6><strong>Skills:</strong></h6>
+              <% if @profile_information_skills[profile_information.id].present? %>
+                <ul>
+                  <% @profile_information_skills[profile_information.id].each do |skill_name| %>
+                    <li><%= skill_name %></li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <p>No skills available.</p>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="card-footer text-muted d-flex justify-content-between">
+            <%= link_to 'Show', profile_information_path(profile_information), class: 'btn btn-info btn-sm' %>
+            <% if profile_information.user == current_user %>
+            <%= link_to 'Edit', edit_profile_information_path(profile_information), class: 'btn btn-warning btn-sm' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

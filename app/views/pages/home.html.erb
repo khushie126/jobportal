@@ -1,0 +1,35 @@
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="container">
+    <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
+      <div class="text-center">
+        <h1 class="display-5 fw-bold text-primary mb-3">
+          <i class="fas fa-briefcase me-2"></i>
+          Welcome to the JobPortal
+        </h1>
+
+        <% if current_user%>
+          <div class="alert alert-success" role="alert">
+            ✅ You have successfully authenticated!
+          </div>
+
+          <% if current_user.profile_information.nil? %>
+            <p class="lead text-secondary">Complete your profile to start applying for jobs.</p>
+            <%= link_to "Create Your Profile", new_profile_information_path, class: 'btn btn-outline-primary btn-lg mt-3' %>
+          <% else %>
+            <p class="lead text-success">
+              Glad to have you back, <strong><%= current_user.profile_information.firstname.capitalize %></strong>! 🎉
+            </p>
+          <% end %>
+
+        <% else %>
+          <div class="alert alert-warning" role="alert">
+            ⚠️ You are not signed in.
+          </div>
+          <p class="lead text-secondary mb-4">Sign up or log in to explore job opportunities!</p>
+          <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-success btn-lg me-2' %>
+          <%= link_to "Login", new_user_session_path, class: 'btn btn-primary btn-lg' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

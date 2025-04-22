@@ -1,0 +1,14 @@
+<!-- app/views/applied_jobs/edit.html.erb -->
+<h1>Edit Application Status</h1>
+
+<%= form_with(model: @applied_job, url: applied_job_path(@applied_job), method: :patch) do |form| %>
+  <div class="form-group">
+    <%= form.label :status %>
+    <%= form.select :status, ["applied","interview","accepted","rejected"], selected: @applied_job.status %>
+  </div>
+  <div class="form-group">
+    <%= form.submit 'Update Status', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Application', applied_job_path(@applied_job) %>

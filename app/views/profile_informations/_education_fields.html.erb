@@ -1,0 +1,33 @@
+<div class="nested-fields">
+  <div class="field">
+    <%= f.label :start_date, class: "form-label" %>
+    <%= f.date_select :start_date, class: 'form-control datepicker' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_date, class: "form-label" %>
+    <%= f.date_select :end_date, class: 'form-control datepicker' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :college_name, class: "form-label" %>
+    <%= f.text_field :college_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :school_name, class: "form-label" %>
+    <%= f.text_field :school_name %>
+  </div>
+
+   <div class="field">
+    <%= f.label :score_type,"Score type", class: "form-label"%>
+    <%= f.select :score_type, Education.score_types.keys.map { |k| [k.humanize, k] }, {}, class: 'form-select' %>
+    <br>
+    <%= f.text_field :score, class: 'form-control', placeholder: 'Enter your score based on type' %>
+    </div>
+
+  <div class="field">
+    <%= link_to_remove_association "remove education", f %>
+  </div>
+</div>
+ 

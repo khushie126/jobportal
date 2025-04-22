@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <%= link_to root_path, class: 'navbar-brand d-flex align-items-center text-white fw-bold' do %>
+      <i class="fas fa-box-open me-2"></i>
+      JobPortal
+    <% end %>
+    <!-- Hamburger Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Collapsible Content -->
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <!-- Left Nav Links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class: "nav-link text-white #{current_page?(root_path) && 'fw-bold'}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Jobs', job_posts_path, class: "nav-link text-white #{current_page?(job_posts_path) && 'fw-bold'}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Companies', companies_path, class: "nav-link text-white #{current_page?(companies_path) && 'fw-bold'}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Applications', applied_jobs_path, class: "nav-link text-white #{current_page?(applied_jobs_path) && 'fw-bold'}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Reviews', reviews_path, class: "nav-link text-white #{current_page?(reviews_path) && 'fw-bold'}" %>
+        </li>
+      </ul>
+      <!-- Right User Section -->
+      <ul class="no-bullets">
+      <% if user_signed_in? %>
+        <li class="nav-item nav-profile dropdown">
+          <a class="nav-link dropdown-toggle show text-white" href="#" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-circle me-1"></i>
+            <%= current_user.profile_information&.firstname || "User" %>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li class="dropdown-item text-muted">
+              Role: <%= current_user.role.capitalize %>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <%= link_to 'Profile', current_user.profile_information || new_profile_information_path, class: "dropdown-item" %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path,'data-turbo-method': :delete, class: "dropdown-item d-flex align-items-center text-danger" do %>
+                <i class="mdi mdi-logout me-2 text-primary"></i>
+                <span>Logout</span>
+              <% end %>
+            </li>
+          </ul>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

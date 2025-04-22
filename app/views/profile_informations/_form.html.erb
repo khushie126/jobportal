@@ -1,0 +1,92 @@
+<%= link_to profile_informations_path, class: 'btn btn-link' do %>
+  <i class="bi bi-arrow-left me-2"></i> Back to Profiles
+<% end %>
+<br>
+
+
+<%= form_with model: @pi, html: { class: 'container py-4' }, data: { turbo: false} do |form| %>
+
+  <div class="mb-3">
+    <%= form.label :firstname, class: 'form-label' %>
+    <%= form.text_field :firstname, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :lastname, class: 'form-label' %>
+    <%= form.text_field :lastname, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :phone_number, class: 'form-label' %>
+    <%= form.text_field :phone_number, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :profile_image, class: 'form-label' %>
+    <%= form.file_field :profile_image, accept: "image/*", class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :company_id, "Company Name", class: 'form-label' %>
+    <%= form.select :company_id, options_for_select(Company.all.map { |c| [c.company_name, c.id] }), {}, class: 'form-select' %>
+  </div>
+
+  <hr>
+
+  <legend class="mt-4">Education</legend>
+  <div id="educations">
+    <!-- Add Education link placed at the top-right -->
+    <div class="d-flex justify-content-end mb-2">
+      <%= link_to_add_association 'Add Education', form, :educations, partial: 'education_fields', class: 'btn btn-link' %>
+    </div>
+
+    <%= form.fields_for :educations do |education| %>
+      <%= render :partial => "education_fields", :locals => { :f => education } %>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <legend>Experience</legend>
+  <div id="experiences">
+    <!-- Add Experience link placed at the top-right -->
+    <div class="d-flex justify-content-end mb-2">
+      <%= link_to_add_association 'Add Experience', form, :experiences, partial: 'experience_fields', class: 'btn btn-link' %>
+    </div>
+
+    <%= form.fields_for :experiences do |experience| %>
+      <%= render :partial => "experience_fields", :locals => { :f => experience } %>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <legend>Project</legend>
+  <div id="projects">
+    <!-- Add Project link placed at the top-right -->
+    <div class="d-flex justify-content-end mb-2">
+      <%= link_to_add_association 'Add Project', form, :projects, partial: 'project_fields', class: 'btn btn-link' %>
+    </div>
+
+    <%= form.fields_for :projects do |project| %>
+      <%= render :partial => "project_fields", :locals => { :f => project } %>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <p>Skills</p>
+  <div id="skills">
+    <%= form.fields_for :skill_assignments do |sa_form| %>
+      <%= render :partial => "skill_fields", :locals => {:f => sa_form} %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association "Add Skills", form, :skill_assignments, partial: 'skill_fields', class: 'btn btn-link' %>
+    </div>
+  </div>
+ 
+  <hr>
+
+  <div class="actions text-center">
+ <%= form.submit (@pi.new_record? ? "Create Profile" : "Update Profile"), class: 'btn btn-primary' %>  </div>
+<% end %>

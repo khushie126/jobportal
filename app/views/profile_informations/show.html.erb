@@ -1,0 +1,107 @@
+<h1 class="text-center my-4">Profile Information</h1>
+
+<div class="text-center mb-4">
+  <%= link_to 'Edit', edit_profile_information_path(@pi), class: 'btn btn-primary me-2' %>
+  <%= link_to 'Back', profile_informations_path, class: 'btn btn-secondary' %>
+</div>
+
+<div class="container my-5">
+  <% if @pi %>
+    <div class="card mb-4">
+      <div class="card-header text-center">
+        <h3>Personal Information</h3>
+      </div>
+      <div class="card-body">
+        <div class="resume-detail text-center">
+          <p><strong>Firstname:</strong> <%= @pi.firstname %></p>
+          <p><strong>Lastname:</strong> <%= @pi.lastname %></p>
+          <p><strong>Phone Number:</strong> <%= @pi.phone_number %></p>
+          <p><strong>Profile Image:</strong>
+            <%= image_tag @pi.profile_image, width: 100, height: 100 if @pi.profile_image.attached? %>
+          </p>
+          <p><strong>Company Name:</strong> 
+            <%= @pi.company.present? ? @pi.company.company_name : 'No company associated' %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <p class="text-center">No profile information available.</p>
+    <%= link_to 'Create Profile', new_profile_information_path, class: 'btn btn-info' %>
+  <% end %>
+</div>
+
+<div class="container my-5">
+  <!-- Education Card -->
+  <div class="card mb-4">
+    <div class="card-header text-center">
+      <h3>Education</h3>
+    </div>
+    <div class="card-body">
+      <% @pi.educations.each do |education| %>
+        <div class="resume-detail mb-3">
+          <p><strong>Start Date:</strong> <%= education.start_date %></p>
+          <p><strong>End Date:</strong> <%= education.end_date %></p>
+          <p><strong>School Name:</strong> <%= education.school_name %></p>
+          <p><strong>College Name:</strong> <%= education.college_name %></p>
+          <p><strong>Score Type:</strong> <%= education.score_type %></p>
+          <p><strong>Score:</strong> <%= education.score %></p>
+          <hr>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Experience Card -->
+  <div class="card mb-4">
+    <div class="card-header text-center">
+      <h3>Experience</h3>
+    </div>
+    <div class="card-body">
+      <% @pi.experiences.each do |experience| %>
+        <div class="resume-detail mb-3">
+          <p><strong>Start Date:</strong> <%= experience.start_date %></p>
+          <p><strong>End Date:</strong> <%= experience.end_date %></p>
+          <p><strong>Company:</strong> <%= experience.company_name %></p>
+          <p><strong>Description:</strong> <%= experience.description %></p>
+          <hr>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Project Card -->
+  <div class="card mb-4">
+    <div class="card-header text-center">
+      <h3>Projects</h3>
+    </div>
+    <div class="card-body">
+      <% @pi.projects.each do |project| %>
+        <div class="resume-detail mb-3">
+          <p><strong>Title:</strong> <%= project.title %></p>
+          <p><strong>Description:</strong> <%= project.description %></p>
+          <hr>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Skills Card -->
+  <div class="card mb-4">
+    <div class="card-header text-center">
+      <% if @skills.present? %>
+      <h3>Skills</h3>
+    </div>
+    <div class="card-body">
+      <div class="resume-detail">
+        <ul class="list-unstyled">
+          <% @skills.each do |skill| %>
+            <li><strong><%= skill %></strong></li>
+          <% end %>
+          <% end %>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>

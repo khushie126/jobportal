@@ -1,0 +1,37 @@
+<h1 class="page-title">Job Post Details</h1>
+
+<div class="job-post-container">
+  <% if @jp %>
+    <div class="card job-post-detail">
+      <div class="card-body">
+        <h5 class="card-title"><%= @jp.title %></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= @jp.job_type %></h6>
+        
+        <p class="card-text"><strong>Description:</strong> <%= @jp.description %></p>
+        <p class="card-text"><strong>Company:</strong> <%= @jp.company.company_name %></p>
+         <% if @skills.present? %>
+        <strong>Required Skills:  </strong>
+        <% end %>
+          <div class="field">
+            <ul>
+              <% @skills.each do |skill| %>
+              <li><%= skill %></li>
+              <% end %>
+            </ul>
+          </div>
+         <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <% if current_user.recruiter? || current_user.admin? %>
+           <%= link_to 'Edit', edit_job_post_path(@jp), class: 'btn btn-warning btn-sm' %>
+           <% end %>
+        
+            <%= link_to 'Back', job_posts_path, class: 'btn btn-secondary btn-sm' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <p>No job post available.</p>
+  <% end %>
+</div>
+

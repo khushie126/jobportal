@@ -1,0 +1,23 @@
+<h1>Company Profile</h1>
+
+<% if @company %>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><%= @company.company_name %></h5>
+      <h6 class="card-subtitle mb-2 text-muted">Location:<%= @company.location %></h6>
+      
+      <p class="card-text"><strong>Description:</strong> <%= @company.description %></p>
+      <p class="card-text"><strong>Review:</strong> <%= @company.review %></p>
+       <div class="d-flex justify-content-between align-items-center">
+          <div>
+      <% if current_user.admin? || current_user.recruiter? %>
+          <%= link_to 'Edit', edit_company_path(@company), class: 'btn btn-warning btn-sm' %>
+      <% end %>
+        <%= link_to 'Back', companies_path, class: 'btn btn-secondary btn-sm' %>
+  </div>
+       </div>
+    </div>
+  </div>
+<% else %>
+  <p>No company profile found.</p>
+<% end %>

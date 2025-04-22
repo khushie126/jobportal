@@ -1,0 +1,25 @@
+<h1 class="page-title text-center mb-5">All Company Reviews</h1>
+
+
+<% @grouped_reviews.each do |(user_id, company_id), grouped| %>
+  <% review = grouped.first %> 
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">
+        <strong><%= review.company.company_name %></strong>
+      </h5>
+
+      <% if review.user %>
+        <p class="text-muted">Reviewed by: <%= review.user.email%></p>
+      <% end %>
+      <% grouped.each do |r| %>
+        <div class="d-flex align-items-center mb-2">
+          <div class="bg-success text-white rounded px-2 py-1 me-2" style="min-width: 40px; text-align: center;">
+            ⭐ <%= r.point %>
+          </div>
+          <span class="fw-semibold"><%= r.category.humanize %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

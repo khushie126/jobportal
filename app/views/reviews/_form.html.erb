@@ -1,0 +1,17 @@
+<h2 class="text-center mb-4">Review <%= company.company_name %></h2>
+
+<%= form_with(model: [company, review], local: true) do |f| %>
+  <div class="mb-3">
+    <%= f.label :category, "Category", class: "form-label" %>
+    <%= f.select :category, Review.categories.keys.map { |k| [k.humanize, k] }, {}, class: 'form-select' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :point, "Rating (0–5)", class: "form-label" %>
+    <%= f.number_field :point, step: 0.1, min: 0, max: 5, class: 'form-control', placeholder: 'Give your review based on type' %>
+  </div>
+
+  <div class="text-center">
+    <%= f.submit "Submit Review", class: 'btn btn-primary' %>
+  </div>
+<% end %>

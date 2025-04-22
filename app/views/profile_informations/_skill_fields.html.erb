@@ -1,0 +1,7 @@
+<div class="nested-fields">
+   <div class="field"> 
+      <%= f.collection_select :skill_id, Skill.all, :id, :name, prompt: "Select Skill" %>
+   </div>
+      <%= f.select :level, options_for_select(SkillAssignment.levels.map {|key, value| [key.titleize, SkillAssignment.levels.key(value)]}, f.object.level)%>
+       <%= link_to_remove_association "Remove Skill", f, class: 'btn btn-danger' %>
+</div>
